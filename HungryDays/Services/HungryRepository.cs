@@ -49,6 +49,13 @@ namespace HungryDays.Services
             }
         }
 
+        public HungryDay GetHungryDay(int id)
+        {
+            var hungryDays = GetAllHungryDays();
+            var hungryDay = hungryDays.FirstOrDefault(x => x.Id == id);
+            return hungryDay;
+        }
+
         public string ReadAllJson()
         {
             return File.ReadAllText(Path);

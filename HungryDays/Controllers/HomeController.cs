@@ -21,9 +21,10 @@ namespace HungryDays.Controllers
             return View(hungryDays);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Detail(int id)
         {
-            return View();
+            var hungryDay = _hungryService.GetHungryDay(id);
+            return View(hungryDay);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
