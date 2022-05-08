@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<HungryDay>;
+
+<div class="container">
+    <div class="row">
+        @foreach(var day in @Model)
+        {
+        <div class="col-6">
+            <div class="card mb-3" >
+              <div class="card-body">
+                <h5 class="card-title">@day.Name</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Diner: @day.Diner</h6>
+              </div>
+              <ul class="list-group list-group-flush">
+                        @foreach(var item in day.Items)
+                        {
+                            <li class="list-group-item">Ingredient</li>
+                        }
+              </ul>
+            </div>
+        </div>
+        }
+
+    </div>
+</div>
+
+
