@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+}
+
+@*todo breadcrumb
+    ViewComponent ->
+    string controllerName = helper.ViewContext.RouteData.Values["controller"].ToString();
+    string actionName = helper.ViewContext.RouteData.Values["action"].ToString();
+    parameter -> 
+    @ViewContext.RouteData
+*@
+
+@RenderBody()
+<div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                    <h4>Actions</h4> 
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="btn-group-vertical h-100 w-100" role="group">
+                        @RenderSection("ContentLeft", required: false)
+                        </div>
+                    </div>
+                </div>
+           </div>
+            <div class="col-md-9">
+                <div class="card h-100">
+                    <div class="card-body">
+                        @RenderSection("ContentRight", required: false)
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
