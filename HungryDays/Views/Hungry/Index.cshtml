@@ -8,16 +8,11 @@
 <hr />
 @section ContentLeft 
 {
-    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-success mb-2">
+
+    <a asp-controller="User" asp-action="DeleteAll" class="btn btn-outline-danger mb-2">
         <div class="row">
-                <div class="col-md-12"><i class="bi bi-arrow-left" style="font-size: 1rem;"></i></div>
-                <div class="col-md-12">Go back</div>
-        </div>
-    </a>
-    <a asp-controller="Group" asp-action="Create" class="btn btn-outline-warning mb-2">
-        <div class="row">
-                <div class="col-md-12"><i class="bi bi-pencil" style="font-size: 1rem;"></i></div>
-                <div class="col-md-12">Create</div>
+                <div class="col-md-12"><i class="bi bi-trash" style="font-size: 1rem;"></i></div>
+                <div class="col-md-12">Reset</div>
         </div>
     </a>
 }

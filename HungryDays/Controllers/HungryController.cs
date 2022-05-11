@@ -27,6 +27,18 @@ namespace HungryDays.Controllers
             return View(hungryDay);
         }
 
+        public IActionResult Edit(int id)
+        {
+            var hungryDay = _hungryService.GetHungryDay(id);
+            return View(hungryDay);
+        }
+
+        public IActionResult Edit(HungryDay hungryDay)
+        {
+            var hungryDay = _hungryService.GetHungryDay(id);
+            return View(hungryDay);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
