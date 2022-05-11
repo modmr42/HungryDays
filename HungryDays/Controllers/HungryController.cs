@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HungryDays.Controllers
 {
-    public class HomeController : Controller
+    public class HungryController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HungryController> _logger;
         private readonly HungryRepository _hungryService;
-        public HomeController(ILogger<HomeController> logger, HungryRepository hungryService)
+        public HungryController(ILogger<HungryController> logger, HungryRepository hungryService)
         {
             _logger = logger;
             _hungryService = hungryService;
@@ -21,9 +21,22 @@ namespace HungryDays.Controllers
             return View(hungryDays);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Detail(int id)
         {
-            return View();
+            var hungryDay = _hungryService.GetHungryDay(id);
+            return View(hungryDay);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var hungryDay = _hungryService.GetHungryDay(id);
+            return View(hungryDay);
+        }
+
+        public IActionResult Edit(HungryDay hungryDay)
+        {
+            var hungryDay = _hungryService.GetHungryDay(id);
+            return View(hungryDay);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
