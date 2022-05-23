@@ -33,11 +33,11 @@ namespace HungryDays.Controllers
             return View(hungryDay);
         }
 
-        public IActionResult Edit(HungryDay hungryDay)
-        {
-            var hungryDay = _hungryService.GetHungryDay(id);
-            return View(hungryDay);
-        }
+        //public IActionResult Edit(HungryDay hungryDay)
+        //{
+        //    var hungryDay = _hungryService;
+        //    return View(hungryDay);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

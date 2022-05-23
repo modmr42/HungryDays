@@ -56,6 +56,19 @@ namespace HungryDays.Services
             return hungryDay;
         }
 
+        public void ResetHungryDay(int id)
+        {
+            var hungryDays = GetAllHungryDays();
+            var hungryDay = hungryDays.FirstOrDefault(x => x.Id == id);
+            hungryDay.Diner = "";
+            hungryDay.Items = new List<Item>();
+
+            hungryDays[id] = hungryDay;
+
+            WriteAllHungryDays(hungryDays);
+        }
+
+
         public string ReadAllJson()
         {
             return File.ReadAllText(Path);
