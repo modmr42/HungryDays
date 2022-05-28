@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungryDays", "HungryDays\HungryDays.csproj", "{5C6E6A99-82D4-4B38-A988-62AF2B254339}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HungryDays", "HungryDays\HungryDays.csproj", "{5C6E6A99-82D4-4B38-A988-62AF2B254339}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hungry.Shared", "Hungry.Shared\Hungry.Shared.csproj", "{5A7706AF-4E84-4834-A2BA-7F73A507CB9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hungry.Blazor", "Hungry.Blazor\Hungry.Blazor.csproj", "{1C6C57AE-6532-48E7-A800-7611EAA80EFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{5C6E6A99-82D4-4B38-A988-62AF2B254339}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C6E6A99-82D4-4B38-A988-62AF2B254339}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C6E6A99-82D4-4B38-A988-62AF2B254339}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7706AF-4E84-4834-A2BA-7F73A507CB9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7706AF-4E84-4834-A2BA-7F73A507CB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7706AF-4E84-4834-A2BA-7F73A507CB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7706AF-4E84-4834-A2BA-7F73A507CB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C6C57AE-6532-48E7-A800-7611EAA80EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C6C57AE-6532-48E7-A800-7611EAA80EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C6C57AE-6532-48E7-A800-7611EAA80EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C6C57AE-6532-48E7-A800-7611EAA80EFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
