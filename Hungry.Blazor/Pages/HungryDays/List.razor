@@ -1,5 +1,55 @@
-﻿<h3>List</h3>
+﻿@using Hungry.Shared.Models
+@using Hungry.Shared.Repositories
+
+@page "/hungrydays"
+
+<PageTitle>List</PageTitle>
+
+@inject HungryRepository _hungryRepostiory
+
+<div class="row">
+@foreach(var day in hungryDays)
+{
+    <div class="col-md-6" >
+        <a href="hungrydays/detail/@day.Id" style="color: inherit; text-decoration: none;">
+        <div class="card mb-3" >
+            <div class="card-body">
+            <h5 class="card-title">@day.Name</h5>
+
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text">Diner</span>
+                <input type="text" class="form-control" value="@day.Diner" disabled>
+            </div>
+
+                    @foreach(var item in day.Items)
+                    {
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                @if(item.Bought)
+                                {
+                                <input class="form-check-input mt-0" type="checkbox" checked >
+                                }
+                                else
+                                {
+                                <input class="form-check-input mt-0" type="checkbox" >
+                                }
+                            </div>
+                            <input type="text" class="form-control" value="@item.Name" disabled>
+                        </div>
+
+                    }
+            </div>
+        </div>
+        </a>
+    </div>
+}
+</div>
 
 @code {
+    public List<HungryDay>? hungryDays;
 
+    protected override void OnInitialized()
+    {
+        hungryDays = _hungryRepostiory.GetAllHungryDays();
+    }
 }
