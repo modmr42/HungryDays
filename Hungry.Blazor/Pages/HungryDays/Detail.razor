@@ -10,35 +10,7 @@
 
 <div class="row">
 
-    <div class="col-md-12">
-        <div class="card mb-3" >
-            <div class="card-body">
-            <h5 class="card-title">@hungryDay.Name</h5>
-            <div class="input-group flex-nowrap">
-                <span class="input-group-text">Diner</span>
-                <input type="text" class="form-control" value="@hungryDay.Diner" disabled>
-            </div>
-
-                    @foreach(var item in hungryDay.Items)
-                    {
-                        <div class="input-group">
-                            <div class="input-group-text">
-                                @if(item.Bought)
-                                {
-                                <input class="form-check-input mt-0" type="checkbox" checked >
-                                }
-                                else
-                                {
-                                <input class="form-check-input mt-0" type="checkbox" >
-                                }
-                            </div>
-                            <input type="text" class="form-control" value="@item.Name" disabled>
-                        </div>
-
-                    }
-            </div>
-        </div>
-    </div>
+<HungryDayComponent Id=@hungryDay.Id Name=@hungryDay.Name Diner=@hungryDay.Diner Items=@hungryDay.Items/>
 
 </div>
 @code {
