@@ -1,0 +1,39 @@
+﻿@using Hungry.Shared.Models
+@using Hungry.Shared.Repositories
+
+@page "/hungrydays/grocerylist"
+
+<PageTitle>Grocery List</PageTitle>
+
+@inject HungryRepository _hungryRepostiory
+@inject NavigationManager NavigationManager
+
+<div class=row>
+@foreach(var item in @allItems)
+{
+    <div class="col-md-12 mb-2">
+        <div class="input-group">
+            <div class="input-group-text">
+                <input type="checkbox" class="form-check-input mt-0" value="item.Bought"/>
+            </div>
+            <input type="text" class="form-control" value="@item.Name"/>
+@*            <a class="btn btn-danger" @onclick="() => DeleteItem(item)">
+                <span class="oi oi-trash"></span>
+            </a>*@
+
+        </div>
+    </div>
+}
+</div>
+
+@code{
+    public List<HungryDay>? hungryDays;
+
+    public List<Item>? allItems;
+
+    protected override void OnInitialized()
+    {
+        hungryDays = _hungryRepostiory.GetAllHungryDays();
+        allItems = hungryDays.SelectMany(x => x.Items.Where(i => !i.Bought)).ToList();
+    }
+}
