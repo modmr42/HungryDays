@@ -33,7 +33,7 @@
 
     protected override void OnInitialized()
     {
-        hungryDays = _hungryRepostiory.GetAllHungryDays();
+        hungryDays = _hungryRepostiory.GetHungryDays();
         allItems = hungryDays.SelectMany(x => x.Items.Where(i => !i.Bought)).ToList();
     }
 }

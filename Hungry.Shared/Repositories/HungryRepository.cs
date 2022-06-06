@@ -8,96 +8,48 @@ using System.Threading.Tasks;
 
 namespace Hungry.Shared.Repositories
 {
-    public class HungryRepository
+    public class HungryRepository : BaseHungryRepository
     {
-        private string Path = "";
-        private const string FileName = "Repository.json";
-
-        public HungryRepository()
-        {
-            this.Path = AppDomain.CurrentDomain.BaseDirectory + "/" + FileName;
-            InitializeRepository();
-        }
-
-        private void InitializeRepository()
-        {
-            var isRepositoryEmpty = true;
-            if (File.Exists(Path))
-            {
-                isRepositoryEmpty = String.IsNullOrEmpty(ReadAllJson());
-            }
-
-            if (isRepositoryEmpty)
-            {
-                string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-                var hungryDays = new List<HungryDay>();
-                for (int i = 0; i < days.Length; i++)
-                {
-                    hungryDays.Add(
-                        new HungryDay
-                        {
-                            Id = i,
-                            Name = days[i],
-                            Diner = "Indo food",
-                            Items = new List<Item>()
-                            {
-                                new Item(),
-                                new Item(),
-                                new Item()
-
-                            }
-                        });
-                }
-
-                this.CreateJsonRepositoryFile();
-                this.WriteAllHungryDays(hungryDays);
-            }
-        }
-
         public HungryDay GetHungryDay(int id)
         {
-            var hungryDays = GetAllHungryDays();
+            var hungryDays = GetHungryDays();
             var hungryDay = hungryDays.FirstOrDefault(x => x.Id == id);
             return hungryDay;
         }
 
         public void ResetHungryDay(int id)
         {
-            var hungryDays = GetAllHungryDays();
+            var hungryDays = GetHungryDays();
             var hungryDay = hungryDays.FirstOrDefault(x => x.Id == id);
             hungryDay.Diner = "";
-            hungryDay.Items = new List<Item>();
+            hungryDay.Items.Clear();
 
             hungryDays[id] = hungryDay;
 
             WriteAllHungryDays(hungryDays);
         }
 
+        public void ResetHungryDays()
+        {
+            var hungryDays = GetHungryDays();
+            hungryDays.ForEach(hungryDay =>
+            {
+                hungryDay.Diner = "";
+                hungryDay.Items.Clear();
+            });
+        }
+
         public void EditHungryDay(HungryDay dto)
         {
-            var hungryDays = GetAllHungryDays();
+            var hungryDays = GetHungryDays();
             hungryDays[dto.Id] = dto;
             WriteAllHungryDays(hungryDays);
         }
 
-        private string ReadAllJson()
-        {
-            return File.ReadAllText(Path);
-        }
 
-        private void WriteAllHungryDays(List<HungryDay> hungryDays)
+        public List<HungryDay> GetHungryDays()
         {
-            var json = JsonConvert.SerializeObject(hungryDays);
-            File.WriteAllText(Path, json);
-        }
-
-        private void CreateJsonRepositoryFile()
-        {
-            File.WriteAllText(this.Path, "");
-        }
-        public List<HungryDay> GetAllHungryDays()
-        {
-            var json = this.ReadAllJson();
+            var json = this.ReadAllToJson();
             var hungryDays = JsonConvert.DeserializeObject<List<HungryDay>>(json);
             return hungryDays;
         }

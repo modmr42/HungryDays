@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hungry.Shared.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,9 @@ namespace Hungry.Shared.Models
     public class Item
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string Name { get; set; } = "Item";
-        public string Store { get; set; } = "Ah";
+        public string Name { get; set; } = "Product";
+        public int Quantity { get; set; } = 1;
+        public StoreToBuy Store { get; set; } = StoreToBuy.None;
         public bool Bought { get; set; } = false;
     }
 }
