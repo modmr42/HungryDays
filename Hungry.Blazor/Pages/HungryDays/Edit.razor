@@ -32,6 +32,7 @@
                                     <InputCheckbox class="form-check-input mt-0" @bind-Value="item.Bought"/>
                                 </div>
                                 <InputText class="form-control" @bind-Value="@item.Name"/>
+                                <InputSelect class="form-select"  @bind-Value="item.Store"/>
                                 <a class="btn btn-danger" @onclick="() => DeleteItem(item)">
                                     <span class="oi oi-trash"></span>
                                 </a>
