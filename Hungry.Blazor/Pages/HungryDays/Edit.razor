@@ -1,4 +1,5 @@
-﻿@using Hungry.Shared.Models
+﻿@using Hungry.Shared.Enums
+@using Hungry.Shared.Models
 @using Hungry.Shared.Repositories
 
 @page "/hungrydays/edit/{Id:int}"
@@ -12,46 +13,68 @@
     <EditForm Model="@hungryDay" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="col-md-6">
-        <div class="" >
-                <div class="row">
-                    <div class="col-md-12 mb-2">
-                        <h5 class="card-title">@hungryDay.Name</h5>
-                        <div class="input-group flex-nowrap">
-                        <span class="input-group-text">Diner</span>
-                        <InputText id="Diner" class="form-control" @bind-Value="@hungryDay.Diner" />
-                    </div>
-                    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <h5 class="card-title">@hungryDay.Name</h5>
+                <div class="input-group flex-nowrap">
+                    <span class="input-group-text">Diner</span>
+                    <InputText id="Diner" class="form-control" @bind-Value="@hungryDay.Diner" />
                 </div>
-                <div class="row">
-                    @foreach(var item in @hungryDay.Items)
-                    {
-                        <div class="col-md-12 mb-2">
-                            <div class="input-group">
-                                <div class="input-group-text">
-                                    <InputCheckbox class="form-check-input mt-0" @bind-Value="item.Bought"/>
-                                </div>
-                                <InputText class="form-control" @bind-Value="@item.Name"/>
-                                <InputSelect class="form-select"  @bind-Value="item.Store"/>
-                                <a class="btn btn-danger" @onclick="() => DeleteItem(item)">
-                                    <span class="oi oi-trash"></span>
-                                </a>
-
-                            </div>
+            </div>
+        </div>
+        @foreach(var item in @hungryDay.Items)
+        {
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-text">
+                            <InputCheckbox class="form-check-input mt-0" @bind-Value="item.Bought"/>
                         </div>
-                    }
+                        <InputText class="form-control" @bind-Value="@item.Name"/>
+                    </div>
+                </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-md-12 mb-2">
-                        <a class="btn btn-warning w-100" @onclick="() => AddItem()">
-                            <span class="oi oi-plus"></span>
-                        </a>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <div class="input-group-text">
+                            Store
+                        </div>
+                        <InputSelect class="form-select"  @bind-Value="item.Store">
+                            @foreach(var store in Enum.GetValues(typeof(StoreToBuy)))
+                            {
+                                <option value="@store">@store</option>
+                            }
+                        </InputSelect>
                     </div>
-                    <div class="col-md-12 mb-2">
-                        <button class="btn btn-success w-100" type="submit">Save</button>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                        <div class="input-group-text">
+                            Quantity
+                        </div>
+                    <InputNumber class="form-control" @bind-Value="item.Quantity"/>
                     </div>
                 </div>
+
+                <div class="col-md-1">
+                    <a class="btn btn-danger w-100" @onclick="() => DeleteItem(item)">
+                        <span class="oi oi-trash"></span>
+                    </a>
+                </div>
+
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <a class="btn btn-warning w-100" @onclick="() => AddItem()">
+                    <span class="oi oi-plus"></span>
+                </a>
+            </div>
+            <div class="col-md-12 mb-2">
+                <button class="btn btn-success w-100" type="submit">Save</button>
+            </div>
         </div>
     </div>
 
