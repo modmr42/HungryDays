@@ -19,7 +19,7 @@ namespace Hungry.Shared.Repositories
             InitializeRepository();
         }
 
-        public void InitializeRepository()
+        private void InitializeRepository()
         {
             var isRepositoryEmpty = true;
             if (File.Exists(Path))
@@ -73,19 +73,25 @@ namespace Hungry.Shared.Repositories
             WriteAllHungryDays(hungryDays);
         }
 
+        public void EditHungryDay(HungryDay dto)
+        {
+            var hungryDays = GetAllHungryDays();
+            hungryDays[dto.Id] = dto;
+            WriteAllHungryDays(hungryDays);
+        }
 
-        public string ReadAllJson()
+        private string ReadAllJson()
         {
             return File.ReadAllText(Path);
         }
 
-        public void WriteAllHungryDays(List<HungryDay> hungryDays)
+        private void WriteAllHungryDays(List<HungryDay> hungryDays)
         {
             var json = JsonConvert.SerializeObject(hungryDays);
             File.WriteAllText(Path, json);
         }
 
-        public void CreateJsonRepositoryFile()
+        private void CreateJsonRepositoryFile()
         {
             File.WriteAllText(this.Path, "");
         }
