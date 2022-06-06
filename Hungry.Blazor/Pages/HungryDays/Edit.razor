@@ -12,42 +12,56 @@
     <EditForm Model="@hungryDay" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="col-md-12">
-        <div class="card mb-3" >
-            <div class="card-body">
-            <h5 class="card-title">@hungryDay.Name</h5>
-            <div class="input-group flex-nowrap">
-                <span class="input-group-text">Diner</span>
-                <InputText id="Diner" class="form-control" @bind-Value="@hungryDay.Diner" />
-            </div>
-
+    <div class="col-md-6">
+        <div class="" >
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <h5 class="card-title">@hungryDay.Name</h5>
+                        <div class="input-group flex-nowrap">
+                        <span class="input-group-text">Diner</span>
+                        <InputText id="Diner" class="form-control" @bind-Value="@hungryDay.Diner" />
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
                     @foreach(var item in @hungryDay.Items)
                     {
-                        <div class="input-group">
-                            <div class="input-group-text">
-                                <InputCheckbox class="form-check-input mt-0" @bind-Value="item.Bought"/>
-                            </div>
-                            <InputText class="form-control" @bind-Value="@item.Name"/>
-                        </div>
+                        <div class="col-md-12 mb-2">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <InputCheckbox class="form-check-input mt-0" @bind-Value="item.Bought"/>
+                                </div>
+                                <InputText class="form-control" @bind-Value="@item.Name"/>
+                                <a class="btn btn-danger" @onclick="() => DeleteItem(item)">
+                                    <span class="oi oi-trash"></span>
+                                </a>
 
+                            </div>
+                        </div>
                     }
-            </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <a class="btn btn-warning w-100" @onclick="() => AddItem()">
+                            <span class="oi oi-plus"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <button class="btn btn-success w-100" type="submit">Save</button>
+                    </div>
+                </div>
         </div>
     </div>
 
 
     <div class="col-md-6">
-        <button class="btn btn-success" type="submit">
-            Save
-        </button>
 
     </div>
 
     </EditForm>
 
-            <button class="btn btn-warning" @onclick="AddItem">
-            Add item
-        </button>
+
 
 </div>
 @code {
@@ -73,5 +87,10 @@
         hungryDay.Items.Add(
             new Item()
         );
+    }
+
+    private void DeleteItem(Item item)
+    {
+        hungryDay.Items.Remove(item);
     }
 }
