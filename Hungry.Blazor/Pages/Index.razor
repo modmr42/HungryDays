@@ -68,7 +68,7 @@
 						<label class="form-label">Name</label>
 						<InputText class="form-control" type="text" @bind-Value="item.Name" />
 						<label class="form-label">Amount</label>
-						<InputRange Min="0" Max="10" Step="1" Value="0" Name="Amount" />
+						@*<InputRange Min="0" Max="10" Step="1" Name="Amount" @bind-Value="item.Quantity" />*@
 						<label class="form-label">Store</label>
 						<select class="form-select form-select">
 							<option value="Ah">Albert heijn</option>
@@ -191,9 +191,11 @@
         // Process the valid form
     }
 
-    private void AddItem(Item item)
+    private void AddItem()
     {
-        hungryDay.Items.Add(item);
+        hungryDay.Items.Add(this.item);
+        _hungryRepostiory.EditHungryDay(hungryDay);
+		this.item = new Item();
     }
 
     private void DeleteItem(Item item)

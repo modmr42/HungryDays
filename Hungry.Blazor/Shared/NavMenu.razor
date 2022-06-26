@@ -32,22 +32,36 @@
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
+    private string? ActiveNavLink => 
+
+    private void ToggleActiveNavLink(int id)
     {
-        collapseNavMenu = !collapseNavMenu;
+        activeNavLinks.ForEach(x => x = false);
+        activeNavLinks[id] = true;
     }
+
+    private List<bool> activeNavLinks { get; set; } = new List<bool>
+    {
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+    };
 }
 
 
 
 
 <ul class="nav nav-tabs nav-fill card-header-tabs">
-	<li class="nav-item"><a class="nav-link active" href="#">Mon</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">Tues</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">Wed</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">Thur</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">Fri</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">Sat</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">Sun</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">Grocery List</a></li>
+	<li class="nav-item"><NavLink class="nav-link active" href="/0">Mon</NavLink></li>
+	<li class="nav-item"><NavLink class="nav-link" href="/1">Tues</NavLink></li>
+	<li class="nav-item"><NavLink class="nav-link" href="/2">Wed</NavLink></li>
+	<li class="nav-item"><NavLink class="nav-link" href="/3">Thur</NavLink></li>
+	<li class="nav-item"><NavLink class="nav-link" href="/4">Fri</NavLink></li>
+	<li class="nav-item"><NavLink class="nav-link" href="/5">Sat</NavLink></li>
+	<li class="nav-item"><NavLink class="nav-link" href="/6">Sun</NavLink></li>
+	<li class="nav-item"><NavLink class="nav-link" href="#">Grocery List</NavLink></li>
 </ul>

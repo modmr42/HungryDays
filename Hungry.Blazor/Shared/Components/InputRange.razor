@@ -1,4 +1,4 @@
-﻿<input class="form-range form-control" type="range" min="@Min" max="@Max" step="@Step" value="@Value" name="@Name" />
+﻿<input class="form-range form-control" type="range" min="@Min" max="@Max" step="@Step" name="@Name" />
 
 
 @code{
@@ -10,9 +10,6 @@
 
     [Parameter]
     public int Step { get; set; }
-
-    [Parameter]
-    public int Value { get; set; }
 
     [Parameter]
     public string Name { get; set; }
