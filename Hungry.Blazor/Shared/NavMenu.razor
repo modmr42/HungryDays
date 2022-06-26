@@ -1,4 +1,4 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@*<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Hungry.Blazor</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -25,7 +25,7 @@
             </NavLink>
         </div>
     </nav>
-</div>
+</div>*@
 
 @code {
     private bool collapseNavMenu = true;
@@ -37,3 +37,17 @@
         collapseNavMenu = !collapseNavMenu;
     }
 }
+
+
+
+
+<ul class="nav nav-tabs nav-fill card-header-tabs">
+	<li class="nav-item"><a class="nav-link active" href="#">Mon</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Tues</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Wed</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Thur</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Fri</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Sat</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Sun</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">Grocery List</a></li>
+</ul>
