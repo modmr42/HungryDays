@@ -10,8 +10,8 @@ namespace Hungry.Shared.Models
     public class Item
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string Name { get; set; } = "Product";
-        public int Quantity { get; set; } = 1;
+        public string Name { get; set; } = "";
+        public int Quantity { get; set; } = 0;
         public StoreToBuy Store { get; set; } = StoreToBuy.None;
         public bool Bought { get; set; } = false;
     }
