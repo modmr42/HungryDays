@@ -9,28 +9,28 @@
 <div class="row">
 	<div class="col-1 text-center align-self-center"><i class="far fa-dot-circle"></i></div>
 	<div class="col-8 text-break align-self-center">
-		<label class="col-form-label fw-bolder">Mexican Tortillas</label>
+		<label class="col-form-label fw-bolder">@hungryDay.Diner</label>
 	</div>
-	<div class="col-1 align-self-center"><a href="#" data-bs-target="#editDiner" data-bs-toggle="modal"><i class="far fa-edit text-warning"></i></a>
-		<div id="editDiner" class="modal fade show" role="dialog" tabindex="-1">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">Edit diner</h4>
-						<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form>
-						<div class="modal-body">
-							<label class="form-label">Title</label>
-							<input class="form-control form-control" type="text" /> </div>
-						<div class="modal-footer">
-							<button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-							<button class="btn btn-primary" type="submit">Save</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+	<div class="col-1 align-self-center">
+		<a @onclick="() => editDinerModal.Open()">
+			<i class="far fa-edit text-warning">
+			</i>
+		</a>
+		<EditForm Model="@hungryDay" OnSubmit="@EditDiner">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+				<Modal @ref="editDinerModal">
+					<Title>Edit diner</Title>
+					<Body>
+						<label class="form-label">Title</label>
+						<InputText class="form-control form-control" type="text" @bind-Value="hungryDay.Diner" />
+					</Body>
+					<Footer>
+						<button class="btn btn-light" type="button" @onclick="() => editDinerModal.Close()">Close</button>
+						<button class="btn btn-primary" type="submit">Save</button>
+					</Footer>
+				</Modal>
+		</EditForm>
 	</div>
 	<div class="col-1 text-center align-self-center">
 		<div id="deleteDay" class="modal fade" role="dialog" tabindex="-1">
@@ -59,7 +59,7 @@
 <div class="row justify-content-end mb-3">
 	<div class="col-12">
 		<button class="btn btn-success w-100" @onclick="() => createIngredientModal.Open()">+</button>
-		<EditForm Model="@item" OnValidSubmit="@AddItem">
+		<EditForm Model="@item" OnSubmit="@AddItem">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 			<Modal @ref="createIngredientModal">
@@ -79,7 +79,7 @@
 						</div>
 					</Body>
 					<Footer>
-						<button class="btn btn-light" type="button" data-bs-dismiss="modal" @onclick="() => createIngredientModal.Close()">Close</button>
+						<button class="btn btn-light" type="button"  @onclick="() => createIngredientModal.Close()">Close</button>
 						<button class="btn btn-primary" type="submit">Save</button>
 					</Footer>
 			</Modal>
@@ -178,25 +178,31 @@
 	[Parameter]
 	public int Id { get; set; } = 0;
 
-	protected override void OnInitialized()
+	//protected override void OnInitialized()
+	//{
+	//	hungryDay = _hungryRepostiory.GetHungryDay(Id);
+	//	item = new Item();
+	//}
+
+	protected override void OnParametersSet()
 	{
+		base.OnParametersSet();
 		hungryDay = _hungryRepostiory.GetHungryDay(Id);
 		item = new Item();
 	}
 
-    private void HandleValidSubmit()
-    {
-        _hungryRepostiory.EditHungryDay(hungryDay);
-        //NavigationManager.NavigateTo("hungrydays");
-        // Process the valid form
-    }
-
-    private void AddItem()
-    {
-        hungryDay.Items.Add(this.item);
-        _hungryRepostiory.EditHungryDay(hungryDay);
+	private void AddItem()
+	{
+		hungryDay.Items.Add(this.item);
+		_hungryRepostiory.EditHungryDay(hungryDay);
 		this.item = new Item();
-    }
+	}
+
+	private void EditDiner()
+	{
+		_hungryRepostiory.EditHungryDay(hungryDay);
+		hungryDay = _hungryRepostiory.GetHungryDay(Id); //refresh
+	}
 
     private void DeleteItem(Item item)
     {

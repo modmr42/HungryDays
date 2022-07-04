@@ -25,9 +25,9 @@ if (!app.Environment.IsDevelopment())
 
 app.Use(async (context, next) =>
 {
-    var url = context.Request.GetDisplayUrl();
-    if (!Regex.IsMatch(url, "/\\d"))
-        context.Response.Redirect("/0");
+    //var url = context.Request.GetDisplayUrl();
+    //if (!Regex.IsMatch(url, "/\\d"))
+    //    context.Response.Redirect("/0");
 
     await next();
 });
