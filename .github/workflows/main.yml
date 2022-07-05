@@ -41,7 +41,7 @@ jobs:
           # Whether prerelease versions should be matched with non-exact versions (for example 5.0.0-preview.6 being matched by 5, 5.0, 5.x or 5.0.x). Defaults to false if not provided.
           #include-prerelease: # optional
       - name: Publish .NET Core blazor WASM project
-        run: dotnet publish HungryDays.Web.csproj -c Release -o release --nologo
+        run: dotnet publish HungryDays.Web/HungryDays.Web.csproj -c Release -o release --nologo
         
       - name: Commit wwwroot to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
