@@ -32,11 +32,7 @@ jobs:
           dotnet-version: 6.0.x
       - name: Publish .NET Core blazor WASM project
         run: dotnet publish HungryDays.Web/HungryDays.Web.csproj -c Release -o release --nologo
-        
-        # Changes the base tag in index.html from '/' to 'HungryDays' to match the GitHub Pages repository subdirectory
-      - name: Change base-tag in index.html from / to BlazorGitHubPagesDemo
-        run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorGitHubPagesDemo\/" \/>/g" release/wwwroot/index.html
-        
+
         # Add the .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
       - name: Add .nojekyll file
         run: touch release/wwwroot/.nojekyll
