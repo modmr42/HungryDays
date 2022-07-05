@@ -1,0 +1,43 @@
+﻿@using Hungry.Shared.Models
+
+    <div class="col-md-12">
+        <div class="card mb-3" >
+            <div class="card-body">
+            <h5 class="card-title">@Name</h5>
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text">Diner</span>
+                <input type="text" class="form-control" value="@Diner" disabled>
+            </div>
+
+                    @foreach(var item in @Items)
+                    {
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                @if(item.Bought)
+                                {
+                                <input class="form-check-input mt-0" type="checkbox" checked >
+                                }
+                                else
+                                {
+                                <input class="form-check-input mt-0" type="checkbox" >
+                                }
+                            </div>
+                            <input type="text" class="form-control" value="@item.Name" disabled>
+                        </div>
+
+                    }
+            </div>
+        </div>
+    </div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    [Parameter]
+    public string Name { get; set; }
+    [Parameter]
+    public string Diner { get; set; }
+    [Parameter]
+    public List<Item> Items { get; set; }
+}
