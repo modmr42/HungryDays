@@ -30,22 +30,20 @@ jobs:
         with:
           # Optional SDK version(s) to use. If not provided, will install global.json version when available. Examples: 2.2.104, 3.1, 3.1.x
           dotnet-version: 6.0.x
-          # Optional global.json location, if your global.json isn't located in the root of the repo.
-         # global-json-file: # optional
-          # Optional package source for which to set up authentication. Will consult any existing NuGet.config in the root of the repo and provide a temporary NuGet.config using the NUGET_AUTH_TOKEN environment variable as a ClearTextPassword
-          #source-url: # optional
-          # Optional OWNER for using packages from GitHub Package Registry organizations/users other than the current repository's owner. Only used if a GPR URL is also provided in source-url
-          #owner: # optional
-          # Optional NuGet.config location, if your NuGet.config isn't located in the root of the repo.
-          #config-file: # optional
-          # Whether prerelease versions should be matched with non-exact versions (for example 5.0.0-preview.6 being matched by 5, 5.0, 5.x or 5.0.x). Defaults to false if not provided.
-          #include-prerelease: # optional
       - name: Publish .NET Core blazor WASM project
         run: dotnet publish HungryDays.Web/HungryDays.Web.csproj -c Release -o release --nologo
         
+        # Changes the base tag in index.html from '/' to 'HungryDays' to match the GitHub Pages repository subdirectory
+      - name: Change base-tag in index.html from / to BlazorGitHubPagesDemo
+        run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorGitHubPagesDemo\/" \/>/g" release/wwwroot/index.html
+        
+        # Add the .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+      - name: Add .nojekyll file
+        run: touch release/wwwroot/.nojekyll
+
       - name: Commit wwwroot to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           BRANCH: gh-pages
           FOLDER: release/wwwroot
