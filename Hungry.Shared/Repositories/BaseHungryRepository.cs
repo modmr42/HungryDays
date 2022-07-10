@@ -36,6 +36,12 @@ namespace Hungry.Shared.Repositories
                             Items = new List<Item>()
                             {
                                 new Item()
+                                {
+                                    Name ="Ingredient",
+                                    Quantity = 1,
+                                    Store = Enums.StoreToBuy.AlbertHeijn,
+                                    Bought = true,
+                                }
                             }
                         });
                 }
