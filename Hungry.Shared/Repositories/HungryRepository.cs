@@ -1,4 +1,4 @@
-﻿using Hungry.Shared.Models;
+﻿using HungryDays.Domain.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hungry.Shared.Repositories
+namespace HungryDays.Domain.Repositories
 {
     public class HungryRepository : BaseHungryRepository
     {

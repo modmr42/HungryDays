@@ -1,7 +1,7 @@
-﻿using Hungry.Shared.Models;
+﻿using HungryDays.Domain.Models;
 using Newtonsoft.Json;
 
-namespace Hungry.Shared.Repositories
+namespace HungryDays.Domain.Repositories
 {
     public class BaseHungryRepository
     {

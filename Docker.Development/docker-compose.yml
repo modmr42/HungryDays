@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  hungrydays.blazor:
+    image: ${DOCKER_REGISTRY-}hungrydays.blazor
+    ports:
+      - "6071:80"
+    build:
+      context: .
+      dockerfile: HungryDays.Blazor/Dockerfile

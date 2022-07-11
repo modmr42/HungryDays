@@ -1,11 +1,11 @@
-﻿using Hungry.Shared.Enums;
+﻿using HungryDays.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hungry.Shared.Models
+namespace HungryDays.Domain.Models
 {
     public class Item
     {

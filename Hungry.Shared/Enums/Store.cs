@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hungry.Shared.Enums
+namespace HungryDays.Domain.Enums
 {
     public enum StoreToBuy
     {
