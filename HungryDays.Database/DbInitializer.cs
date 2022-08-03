@@ -33,7 +33,7 @@ namespace HungryDays.Database
             #region DbFill
             string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             var hungryDays = new List<HungryDayEntity>();
-            for (int i = 0; i < days.Length; i++)
+            for (int i = 0; i < 1; i++) //todo delete auto increment of hungrydays id
             {
                 hungryDays.Add(
                     new HungryDayEntity
