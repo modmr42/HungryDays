@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,19 @@ namespace HungryDays.Database.Entities
         public int Quantity { get; set; } = 0;
         public string Store { get; set; } ="Store";
         public bool Bought { get; set; } = false;
+
+        public int HungryDayID { get; set; }
+
+        public HungryDayEntity HungryDay { get; set; }
+
+        //public static void OnModelCreating(EntityTypeBuilder<HungryItemEntity> entity)
+        //{
+        //    entity
+        //        .HasKey(x => x.Id);
+        //    entity
+        //        .HasOne(x => x.HungryDay)
+        //        .WithMany(x => x.HungryItems)
+        //        .HasForeignKey(x => x.HungryDayID);
+        //}
     }
 }
