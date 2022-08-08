@@ -14,6 +14,20 @@ namespace HungryDays.Database.Entities
         public string Diner { get; set; }
         public ICollection<HungryItemEntity> HungryItems { get; set; }
 
+        public void Update(HungryDayEntity entity)
+        {
+            this.Diner = entity.Diner;
+            this.Day = entity.Day;
+            this.HungryItems = entity.HungryItems;
+        }
+
+        public void Reset()
+        {
+            this.Diner = "";
+            this.HungryItems.Clear();
+            this.HungryItems.Add(new HungryItemEntity());
+        }
+
         public static void OnModelCreating(EntityTypeBuilder<HungryDayEntity> entity)
         {
             entity

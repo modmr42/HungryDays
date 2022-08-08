@@ -1,9 +1,9 @@
 ﻿@page "/{Id:int}"
 @using HungryDays.Blazor.Shared.Components
 @using HungryDays.Domain.Models
-@using HungryDays.Domain.Repositories
+@using HungryDays.Domain.Services
 
-@inject HungryRepository _hungryRepostiory
+@inject HungryDayService _hungryDayService
 @inject NavigationManager NavigationManager
 
 <div class="row">
@@ -173,7 +173,7 @@
 
 	public HungryDay? hungryDay;
 
-	public Item? item;
+	public HungryItem? item;
 
 	[Parameter]
 	public int Id { get; set; } = 0;
@@ -184,18 +184,18 @@
 	//	item = new Item();
 	//}
 
-	protected override void OnParametersSet()
+	protected override async Task OnParametersSet()
 	{
 		base.OnParametersSet();
-		hungryDay = _hungryRepostiory.GetHungryDay(Id);
-		item = new Item();
+		hungryDay = await _hungryDayService.Get(Id);
+		item = new HungryItem();
 	}
 
 	private void AddItem()
 	{
 		hungryDay.Items.Add(this.item);
 		_hungryRepostiory.EditHungryDay(hungryDay);
-		this.item = new Item();
+		this.item = new HungryItem();
 	}
 
 	private void EditDiner()
@@ -204,7 +204,7 @@
 		hungryDay = _hungryRepostiory.GetHungryDay(Id); //refresh
 	}
 
-    private void DeleteItem(Item item)
+    private void DeleteItem(HungryItem item)
     {
         hungryDay.Items.Remove(item);
     }

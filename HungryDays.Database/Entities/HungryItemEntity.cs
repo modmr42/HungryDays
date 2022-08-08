@@ -19,6 +19,14 @@ namespace HungryDays.Database.Entities
 
         public HungryDayEntity HungryDay { get; set; }
 
+        public void Update(HungryItemEntity entity)
+        {
+            this.Name = entity.Name;
+            this.Quantity = entity.Quantity;
+            this.Store = entity.Store;
+            this.Bought = entity.Bought;
+        }
+
         //public static void OnModelCreating(EntityTypeBuilder<HungryItemEntity> entity)
         //{
         //    entity

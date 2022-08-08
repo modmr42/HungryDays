@@ -33,9 +33,9 @@ namespace HungryDays.Domain.Repositories
                             Id = i,
                             Name = days[i],
                             Diner = "Still not decided",
-                            Items = new List<Item>()
+                            Items = new List<HungryItem>()
                             {
-                                new Item()
+                                new HungryItem()
                                 {
                                     Name ="Ingredient",
                                     Quantity = 1,

@@ -29,11 +29,17 @@ namespace HungryDays.Database.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task UpdateHungryDayAsync(HungryDayEntity hungryDayEntity)
-        {
-            _dbContext.HungryDays.Update(hungryDayEntity);
-
+        public async Task SaveChangesAsync() =>
             await _dbContext.SaveChangesAsync();
-        }
+
+        //public async Task UpdateHungryDayAsync(HungryDayEntity hungryDayEntity)
+        //{
+        //    if (hungryDayEntity == null)
+        //        throw new ArgumentNullException(nameof(hungryDayEntity));
+
+        //    var hungryDay = await _dbContext.HungryDays.FirstOrDefaultAsync(x => x.Id == hungryDayEntity.Id);
+
+        //    await _dbContext.SaveChangesAsync();
+        //}
     }
 }

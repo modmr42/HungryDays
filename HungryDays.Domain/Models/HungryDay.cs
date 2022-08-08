@@ -9,9 +9,9 @@ namespace HungryDays.Domain.Models
     public class HungryDay
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Day { get; set; }
         public string Diner { get; set; }
 
-        public List<Item> Items { get; set; }
+        public List<HungryItem> HungryItems { get; set; }
     }
 }

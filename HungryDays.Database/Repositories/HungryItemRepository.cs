@@ -28,5 +28,13 @@ namespace HungryDays.Database.Repositories
             return await _dbContext.HungryItems
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public void DeleteHungryItem(HungryItemEntity entity)
+        {
+            _dbContext.HungryItems.Remove(entity);
+        }
+
+        public async Task SaveChangesAsync() =>
+            await _dbContext.SaveChangesAsync();
     }
 }
