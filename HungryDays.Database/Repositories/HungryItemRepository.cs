@@ -29,6 +29,10 @@ namespace HungryDays.Database.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public void AddHungryItem(HungryItemEntity entity)
+        {
+            _dbContext.HungryItems.Add(entity);
+        }
         public void DeleteHungryItem(HungryItemEntity entity)
         {
             _dbContext.HungryItems.Remove(entity);

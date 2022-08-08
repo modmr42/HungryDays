@@ -26,6 +26,16 @@ namespace HungryDays.Domain.Services
             return await _repository.GetHungryItemAsync(id);
         }
 
+        public async Task Add(HungryItemEntity entity)
+        {
+            if(entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _repository.AddHungryItem(entity);
+
+            await _repository.SaveChangesAsync();
+        }
+
         public async Task Update(HungryItemEntity entity)
         {
             var entityFromDb = await _repository.GetHungryItemAsync(entity.Id);

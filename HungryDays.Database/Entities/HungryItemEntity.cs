@@ -27,6 +27,7 @@ namespace HungryDays.Database.Entities
             this.Bought = entity.Bought;
         }
 
+
         //public static void OnModelCreating(EntityTypeBuilder<HungryItemEntity> entity)
         //{
         //    entity

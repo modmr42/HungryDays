@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using HungryDays.Database;
 using HungryDays.Database.Factories;
+using HungryDays.Database.Repositories;
+using HungryDays.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,14 @@ builder.Services.AddSingleton<WeatherForecastService>();
 //db
 builder.Services.AddDbContext<HungryDaysDbContext>();
 builder.Services.AddSingleton<HungryDaysDbContextFactory>();
+
+//services
+builder.Services.AddScoped<HungryDayService>();
+builder.Services.AddScoped<HungryItemService>();
+
+//repos
+builder.Services.AddScoped<HungryDayRepository>();
+builder.Services.AddScoped<HungryItemRepository>();
 
 
 var app = builder.Build();

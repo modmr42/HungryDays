@@ -27,8 +27,8 @@ namespace HungryDays.Database
             context.Database.Migrate();
 
             //If dummy data already exists return;
-            //if (context.HungryDays.Any())
-            //    return;
+            if (context.HungryDays.Any())
+                return;
 
             #region DbFill
             string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };

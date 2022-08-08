@@ -19,14 +19,18 @@ namespace HungryDays.Database.Repositories
         public async Task<IEnumerable<HungryDayEntity>> GetHungryDaysAsync()
         {
             return await _dbContext.HungryDays
+                .Include(x => x.HungryItems)
                 .OrderBy(x => x.Id)
                 .ToListAsync();
         }
 
         public async Task<HungryDayEntity> GetHungryDayAsync(int id)
         {
-            return await _dbContext.HungryDays
+            var entityFromDb = await _dbContext.HungryDays
+                .Include(x => x.HungryItems)
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            return entityFromDb;
         }
 
         public async Task SaveChangesAsync() =>
