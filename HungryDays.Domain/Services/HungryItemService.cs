@@ -40,7 +40,7 @@ namespace HungryDays.Domain.Services
         {
             var entityFromDb = await _repository.GetHungryItemAsync(entity.Id);
 
-            if (entityFromDb != null)
+            if (entityFromDb == null)
                 throw new Exception("Could not find item to update");
 
             entityFromDb.Update(entity);
@@ -52,7 +52,7 @@ namespace HungryDays.Domain.Services
         {
             var entityFromDb = await _repository.GetHungryItemAsync(id);
 
-            if (entityFromDb != null)
+            if (entityFromDb == null)
                 throw new Exception("Could not find item to delete");
 
             _repository.DeleteHungryItem(entityFromDb);

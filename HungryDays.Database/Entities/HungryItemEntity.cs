@@ -11,7 +11,7 @@ namespace HungryDays.Database.Entities
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = "Item";
-        public int Quantity { get; set; } = 0;
+        public int Quantity { get; set; } = 1;
         public string Store { get; set; } ="Store";
         public bool Bought { get; set; } = false;
 

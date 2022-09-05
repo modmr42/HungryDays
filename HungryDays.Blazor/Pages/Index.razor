@@ -63,7 +63,7 @@
 	<hr />
 	<div class="row justify-content-end mb-3">
 		<div class="col-12">
-			<button class="btn btn-success w-100" @onclick="() => createIngredientModal.Open()">+</button>
+			
 			<EditForm Model="@_hungryItemEntity" OnSubmit="@AddItem">
 				<DataAnnotationsValidator />
 				<ValidationSummary />
@@ -92,12 +92,12 @@
 			</EditForm>
 		</div>
 	</div>
-	<form>
 		@foreach (var _hungryItemEntity in _hungryDayEntity.HungryItems)
 		{
 			<div class="row mt-2" style="box-shadow: 0px 0px 6px 0px;">
 				<div class="col-1 align-self-center">
-					<input type="checkbox" /> </div>
+					<input type="checkbox" @bind="_hungryItemEntity.Bought" @onclick="async () => await ItemCheckChanged(_hungryItemEntity)"/> 
+				</div>
 				<div class="col-3 align-self-center">
 					<label class="col-form-label">@_hungryItemEntity.Name</label>
 				</div>
@@ -164,11 +164,10 @@
 		<hr />
 		<div class="row mt-2">
 			<div class="col-12">
-				<button class="btn btn-primary disabled w-100" type="button" disabled>Save</button>
+				<button class="btn btn-success w-100" @onclick="() => createIngredientModal.Open()">+</button>
 			</div>
 		</div>
 
-	</form>
 
 }
 @code {
@@ -220,6 +219,13 @@
 	private async Task DeleteItem(HungryItemEntity hungryItem)
 	{
 		await _hungryItemService.Delete(hungryItem.Id);
+	}
+
+	private async Task ItemCheckChanged(HungryItemEntity hungryItem)
+	{
+		hungryItem.Bought = true;
+		await _hungryItemService.Update(hungryItem);
+		_hungryDayEntity = await _hungryDayService.Get(_hungryDayEntity.Id);
 	}
 
 }
