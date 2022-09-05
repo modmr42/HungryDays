@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HungryDays.Domain", "Hungry
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HungryDays.Blazor", "HungryDays.Blazor\HungryDays.Blazor.csproj", "{0F456930-25D4-4E2C-81D5-2147C10CF6F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungryDays.Database", "HungryDays.Database\HungryDays.Database.csproj", "{6DBF8073-3E18-43BF-BE9C-40BC6EDFE00B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HungryDays.Database", "HungryDays.Database\HungryDays.Database.csproj", "{6DBF8073-3E18-43BF-BE9C-40BC6EDFE00B}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "Docker.Development", "Docker.Development\Docker.Development.dcproj", "{0467C0D5-7CB7-4DD4-BCDD-8A993290CF6D}"
 EndProject

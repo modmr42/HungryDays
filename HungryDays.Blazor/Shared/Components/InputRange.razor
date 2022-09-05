@@ -1,4 +1,4 @@
-﻿<input class="form-range form-control" type="range" min="@Min" max="@Max" step="@Step" name="@Name" />
+﻿<input class="form-range form-control" type="range" min="@Min" max="@Max" step="@Step" value="@Value" @oninput="ValueChanged"/>
 
 
 @code{
@@ -11,7 +11,10 @@
     [Parameter]
     public int Step { get; set; }
 
-    [Parameter]
-    public string Name { get; set; }
+   [Parameter]
+   public string Value { get; set; }
+
+   [Parameter]
+   public EventCallback<ChangeEventArgs> ValueChanged { get; set; }
 
 }

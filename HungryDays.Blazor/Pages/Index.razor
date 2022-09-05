@@ -17,10 +17,10 @@
 			<label class="col-form-label fw-bolder">@_hungryDayEntity.Diner</label>
 		</div>
 		<div class="col-1 align-self-center">
-			<a @onclick="() => editDinerModal.Open()">
+			<button @onclick="() => editDinerModal.Open()">
 				<i class="far fa-edit text-warning">
 				</i>
-			</a>
+			</button>
 			<EditForm Model="@_hungryDayEntity" OnSubmit="@EditDiner">
 				<DataAnnotationsValidator />
 				<ValidationSummary />
@@ -32,7 +32,7 @@
 					</Body>
 					<Footer>
 						<button class="btn btn-light" type="button" @onclick="() => editDinerModal.Close()">Close</button>
-						<button class="btn btn-primary" type="submit">Save</button>
+						<button class="btn btn-primary" type="submit" @onclick="() => editDinerModal.Close()">Save</button>
 					</Footer>
 				</Modal>
 			</EditForm>
@@ -73,7 +73,8 @@
 						<label class="form-label">Name</label>
 						<InputText class="form-control" type="text" @bind-Value="_hungryItemEntity.Name" />
 						<label class="form-label">Amount</label>
-						@*<InputRange Min="0" Max="10" Step="1" Name="Amount" @bind-Value="_hungryItemEntity.Quantity" />*@
+						@*<InputRange Min="0" Max="10" Step="1" @bind-Value="_hungryItemEntity.Quantity" />*@
+						<InputNumber class="form-control" @bind-Value="_hungryItemEntity.Quantity" />
 						<label class="form-label">Store</label>
 						<select class="form-select form-select">
 							<option value="Ah">Albert heijn</option>
