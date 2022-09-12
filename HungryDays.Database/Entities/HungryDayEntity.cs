@@ -23,9 +23,9 @@ namespace HungryDays.Database.Entities
 
         public void Reset()
         {
-            this.Diner = "";
+            this.Diner = "Still not decided";
             this.HungryItems.Clear();
-            this.HungryItems.Add(new HungryItemEntity());
+
         }
 
         public static void OnModelCreating(EntityTypeBuilder<HungryDayEntity> entity)
