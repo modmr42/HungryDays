@@ -10,6 +10,13 @@
 @inject NavigationManager NavigationManager
 
 @if(hungryItemEntities != null){
+	<div class="row mt-2">
+		<div class="col-12">
+			<button class="btn btn-danger w-100" @onclick="() => DeleteItems()"><i class="far fa-trash-alt text-white"></i></button>
+		</div>
+	</div>
+	<hr />
+
 	@foreach (var _hungryItemEntity in hungryItemEntities)
 	{
 		<div class="row mt-2" style="box-shadow: 0px 0px 6px 0px;">
@@ -93,6 +100,20 @@
 	{
 		hungryItem.Bought = true;
 		await _hungryItemService.Update(hungryItem);
+		hungryItemEntities = await _hungryItemService.GetAll();
+	}
+
+	private async Task DeleteItems()
+	{
+		if(!hungryItemEntities.Any())
+			return;
+		var idsToDelete = hungryItemEntities.Select( x => x.Id);
+
+		foreach( var id in idsToDelete)
+		{
+			await _hungryItemService.Delete(id);
+		}
+
 		hungryItemEntities = await _hungryItemService.GetAll();
 	}
 }

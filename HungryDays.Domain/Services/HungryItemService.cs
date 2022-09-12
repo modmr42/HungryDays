@@ -18,7 +18,9 @@ namespace HungryDays.Domain.Services
 
         public async Task<IEnumerable<HungryItemEntity>> GetAll()
         {
-            return await _repository.GetHungryItemsAsync();
+            var hungryItems = await _repository.GetHungryItemsAsync();
+            hungryItems.OrderBy(x => x.Store);
+            return hungryItems;
         }
 
         public async Task<HungryItemEntity> Get(Guid id)
