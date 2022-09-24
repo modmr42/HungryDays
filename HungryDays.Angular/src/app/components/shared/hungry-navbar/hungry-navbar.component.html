@@ -1,0 +1,25 @@
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs nav-fill card-header-tabs">
+                            <li class="nav-item"><a class="nav-link" routerLink="/hungrylist/1" routerLinkActive="active">Mon</a></li>
+                            <li class="nav-item"><a class="nav-link" routerLink="/hungrylist/2" routerLinkActive="active">Tues</a></li>
+                            <li class="nav-item"><a class="nav-link" routerLink="/hungrylist/3" routerLinkActive="active">Wed</a></li>
+                            <li class="nav-item"><a class="nav-link" routerLink="/hungrylist/4" routerLinkActive="active">Thur</a></li>
+                            <li class="nav-item"><a class="nav-link" routerLink="/hungrylist/5" routerLinkActive="active">Fri</a></li>
+                            <li class="nav-item"><a class="nav-link" routerLink="/hungrylist/6" routerLinkActive="active">Sat</a></li>
+                            <li class="nav-item"><a class="nav-link" routerLink="/hungrylist/7" routerLinkActive="active">Sun</a></li>
+                            <li class="nav-item"><a class="nav-link" routerLink="/hungrylist/grocerylist">Grocery List</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
