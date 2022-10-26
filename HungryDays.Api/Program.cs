@@ -4,7 +4,10 @@ using HungryDays.Database.Repositories;
 using HungryDays.Domain.Factories;
 using HungryDays.Domain.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors();
 
 // Add services to the container.
 //db
@@ -62,6 +65,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseCors(builder =>
+{
+    builder
+    .WithOrigins("http://localhost:4200")
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials();
+});
 
 app.MapControllerRoute(
     name: "default",
