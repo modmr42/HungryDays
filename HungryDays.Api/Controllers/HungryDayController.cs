@@ -1,6 +1,8 @@
 ﻿using HungryDays.Database.Entities;
 using HungryDays.Database.Repositories;
 using HungryDays.Domain.Factories;
+using HungryDays.Domain.Models;
+using HungryDays.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HungryDays.Api.Controllers
@@ -9,23 +11,23 @@ namespace HungryDays.Api.Controllers
     [Route("[controller]")]
     public class HungryDayController : ControllerBase
     {
-        private readonly HungryDayRepository _hungryDayRepository;
+        private readonly HungryDayService _hungryDayService;
         private readonly HungryDayFactory _hungryDayFactory;
 
         private readonly ILogger<HungryDayController> _logger;
 
         public HungryDayController(ILogger<HungryDayController> logger,
-            HungryDayRepository hungryDayRepository, HungryDayFactory hungryDayFactory)
+            HungryDayService hungryDayService, HungryDayFactory hungryDayFactory)
         {
             _logger = logger;
-            _hungryDayRepository = hungryDayRepository;
+            _hungryDayService = hungryDayService;
             _hungryDayFactory = hungryDayFactory;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var entities = await _hungryDayRepository.GetHungryDaysAsync();
+            var entities = await _hungryDayService.GetAll();
             var model = entities.Select(x => _hungryDayFactory.ToDto(x));
             if(model == null)
                 return NoContent();
@@ -39,12 +41,24 @@ namespace HungryDays.Api.Controllers
             if(id < 0)
                 return BadRequest();
 
-            var entity = await _hungryDayRepository.GetHungryDayAsync(id);
+            var entity = await _hungryDayService.Get(id);
             if(entity == null)
                 return NotFound();
 
             var model = _hungryDayFactory.ToDto(entity);
             return Ok(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(HungryDayDto dto)
+        {
+            if (dto == null || dto.Id < 0)
+                return BadRequest();
+
+            var entity =  _hungryDayFactory.ToEntity(dto);
+            await _hungryDayService.Update(entity);
+
+            return Ok();//Created();
         }
 
 

@@ -15,11 +15,11 @@ builder.Services.AddDbContext<HungryDaysDbContext>();
 builder.Services.AddSingleton<HungryDaysDbContextFactory>();
 
 //services
-builder.Services.AddScoped<HungryDayService>();
+builder.Services.AddScoped<global::HungryDays.Domain.Services.HungryDayService>();
 builder.Services.AddScoped<HungryItemService>();
 
 //repos
-builder.Services.AddScoped<HungryDayRepository>();
+builder.Services.AddScoped<global::HungryDays.Database.Repositories.HungryDayRepository>();
 builder.Services.AddScoped<HungryItemRepository>();
 
 //factories

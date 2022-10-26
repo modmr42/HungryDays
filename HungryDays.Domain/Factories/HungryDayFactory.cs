@@ -14,7 +14,7 @@ namespace HungryDays.Domain.Factories
         {
             return new HungryDayDto
             {
-                Id = entity.Id.ToString(),
+                Id = entity.Id,
                 Day = entity.Day,
                 Diner = entity.Diner,
                 HungryItems = entity.HungryItems.Select(x => new HungryItemDto
@@ -33,7 +33,7 @@ namespace HungryDays.Domain.Factories
         {
             return new HungryDayEntity
             {
-                Id = Convert.ToInt32(dto.Id),
+                Id =dto.Id,
                 Day = dto.Day,
                 Diner = dto.Diner,
                 HungryItems = dto.HungryItems.Select(x => new HungryItemEntity

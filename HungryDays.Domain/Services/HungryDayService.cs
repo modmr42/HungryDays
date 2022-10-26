@@ -11,8 +11,8 @@ namespace HungryDays.Domain.Services
 {
     public class HungryDayService
     {
-        private HungryDayRepository _repository;
-        public HungryDayService(HungryDayRepository repository)
+        private Database.Repositories.HungryDayRepository _repository;
+        public HungryDayService(Database.Repositories.HungryDayRepository repository)
         {
             _repository = repository;
         }
