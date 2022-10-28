@@ -49,7 +49,7 @@ namespace HungryDays.Api.Controllers
             return Ok(model);
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         public async Task<IActionResult> Update(HungryDayDto dto)
         {
             if (dto == null || dto.Id < 0)
@@ -59,6 +59,19 @@ namespace HungryDays.Api.Controllers
             await _hungryDayService.Update(entity);
 
             return Ok();//Created();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Reset(int id)
+        {
+            if (id < 0)
+                return NotFound();
+            var entity = await _hungryDayService.Get(id);
+
+            if(entity != null)
+                await _hungryDayService.Reset(id);
+
+            return Ok();
         }
 
 
