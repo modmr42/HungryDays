@@ -15,19 +15,20 @@ builder.Services.AddDbContext<HungryDaysDbContext>();
 builder.Services.AddSingleton<HungryDaysDbContextFactory>();
 
 //services
-builder.Services.AddScoped<global::HungryDays.Domain.Services.HungryDayService>();
+builder.Services.AddScoped<HungryDayService>();
 builder.Services.AddScoped<HungryItemService>();
 
 //repos
-builder.Services.AddScoped<global::HungryDays.Database.Repositories.HungryDayRepository>();
+builder.Services.AddScoped<HungryDayRepository>();
 builder.Services.AddScoped<HungryItemRepository>();
 
 //factories
 builder.Services.AddScoped<HungryDayFactory>();
 
 
-
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -54,15 +55,17 @@ static void CreateDbIfNotExists(IHost host)
 
 
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    //swagger
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+// Configure the HTTP request pipeline.
+// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+app.UseHsts();
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 app.UseRouting();
 
 app.UseCors(builder =>
@@ -77,7 +80,5 @@ app.UseCors(builder =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html"); ;
 
 app.Run();

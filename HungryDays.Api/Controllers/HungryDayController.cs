@@ -1,6 +1,4 @@
-﻿using HungryDays.Database.Entities;
-using HungryDays.Database.Repositories;
-using HungryDays.Domain.Factories;
+﻿using HungryDays.Domain.Factories;
 using HungryDays.Domain.Models;
 using HungryDays.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
