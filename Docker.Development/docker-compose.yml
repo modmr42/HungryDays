@@ -23,3 +23,12 @@ services:
     - 1433:1433
 
 
+  hungrydays.angular:
+    image: ${DOCKER_REGISTRY-}hungrydays.angular
+    build:
+     context: ..
+     dockerfile: HungryDays.Angular/Dockerfile
+    ports:
+     - "6073:80" 
+
+
