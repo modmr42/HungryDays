@@ -70,11 +70,21 @@ app.UseRouting();
 
 app.UseCors(builder =>
 {
-    builder
-    .WithOrigins("http://localhost:6073")
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials();
+    if (app.Environment.IsDevelopment()) 
+    {
+        builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    }
+    else
+    {
+        builder
+        .WithOrigins("http://localhost:6073")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    }
 });
 
 app.MapControllerRoute(
