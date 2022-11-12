@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HungryDays.Domain.Factories;
+using HungryDays.Domain.Models;
+using HungryDays.Domain.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HungryDays.Api.Controllers
 {
@@ -6,28 +9,71 @@ namespace HungryDays.Api.Controllers
     [Route("[controller]")]
     public class HungryItemController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
+        private readonly HungryItemService _hungryItemService;
+        private readonly HungryItemFactory _hungryItemFactory;
         private readonly ILogger<HungryItemController> _logger;
 
-        public HungryItemController(ILogger<HungryItemController> logger)
+        public HungryItemController(ILogger<HungryItemController> logger,
+            HungryItemService hungryItemService, HungryItemFactory hungryItemFactory)
         {
             _logger = logger;
+            _hungryItemService = hungryItemService;
+            _hungryItemFactory = hungryItemFactory;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IActionResult> GetAll()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var entities = await _hungryItemService.GetAll();
+            var model = entities.Select(x => _hungryItemFactory.ToDto(x));
+            if (model == null)
+                return NoContent();
+
+            return Ok(model);
+        }
+
+        [HttpGet("hungryitem/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            if (id == Guid.Empty)
+                return BadRequest();
+
+            var entity = await _hungryItemService.Get(id);
+            if (entity == null)
+                return NotFound();
+
+            var model = _hungryItemFactory.ToDto(entity);
+            return Ok(model);
+        }
+
+        [HttpPost("hungryitem/{id}")]
+        public async Task<IActionResult> Update(HungryItemDto dto)
+        {
+            if (dto == null)
+                return BadRequest();
+
+            var entity = _hungryItemFactory.ToEntity(dto);
+            var entityFromDb = await _hungryItemService.Get(dto.Id);
+            if(entityFromDb == null)
+                return NotFound(dto.Id);
+
+            entityFromDb.Update(entity);
+            await _hungryItemService.Update(entityFromDb);
+
+            return Ok();
+        }
+
+        [HttpPost("hungryitem")]
+        public async Task<IActionResult> Create(HungryItemDto dto)
+        {
+            if (dto == null)
+                return BadRequest();
+
+            var entity = _hungryItemFactory.ToEntity(dto);
+
+            await _hungryItemService.Add(entity);
+
+            return Ok();
         }
     }
 }

@@ -24,6 +24,7 @@ builder.Services.AddScoped<HungryItemRepository>();
 
 //factories
 builder.Services.AddScoped<HungryDayFactory>();
+builder.Services.AddScoped<HungryItemFactory>();
 
 
 builder.Services.AddControllers();

@@ -17,7 +17,7 @@ namespace HungryDays.Database.Entities
 
         public int HungryDayID { get; set; }
 
-        public HungryDayEntity HungryDay { get; set; }
+        public HungryDayEntity HungryDay { get; set; } 
 
         public void Update(HungryItemEntity entity)
         {
