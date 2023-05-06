@@ -1,4 +1,5 @@
 using HungryDays.Database;
+using HungryDays.Database.Entities;
 using HungryDays.Database.Factories;
 using HungryDays.Database.Repositories;
 using HungryDays.Domain.Factories;
@@ -10,9 +11,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 
 // Add services to the container.
+
+
 //db
 builder.Services.AddDbContext<HungryDaysDbContext>();
-builder.Services.AddSingleton<HungryDaysDbContextFactory>();
+builder.Services.AddScoped<HungryDaysDbContextFactory>();
+//db auth
+builder.Services.AddIdentityCore<HungryUserEntity>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+}).AddEntityFrameworkStores<HungryDaysDbContext>();
 
 //services
 builder.Services.AddScoped<HungryDayService>();
@@ -27,9 +41,13 @@ builder.Services.AddScoped<HungryDayFactory>();
 builder.Services.AddScoped<HungryItemFactory>();
 
 
+//base logic
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+
 
 var app = builder.Build();
 

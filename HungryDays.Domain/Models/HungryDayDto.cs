@@ -8,7 +8,7 @@ namespace HungryDays.Domain.Models
 {
     public class HungryDayDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Day { get; set; }
         public string Diner { get; set; }
 

@@ -34,9 +34,11 @@ namespace HungryDays.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            if(id < 0)
+            var entityFromDb = await _hungryDayService.Exists(id);
+
+            if (!entityFromDb)
                 return BadRequest();
 
             var entity = await _hungryDayService.Get(id);
@@ -50,7 +52,9 @@ namespace HungryDays.Api.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> Update(HungryDayDto dto)
         {
-            if (dto == null || dto.Id < 0)
+            var entityFromDb = await _hungryDayService.Exists(dto.Id);
+
+            if (!entityFromDb)
                 return BadRequest();
 
             var entity =  _hungryDayFactory.ToEntity(dto);
@@ -60,10 +64,13 @@ namespace HungryDays.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Reset(int id)
+        public async Task<IActionResult> Reset(Guid id)
         {
-            if (id < 0)
-                return NotFound();
+            var entityFromDb = await _hungryDayService.Exists(id);
+
+            if (!entityFromDb)
+                return BadRequest();
+
             var entity = await _hungryDayService.Get(id);
 
             if(entity != null)

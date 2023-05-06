@@ -9,7 +9,7 @@ namespace HungryDays.Domain.Models
     public class HungryItemDto
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public int HungryDayId { get; set; }
+        public Guid HungryDayId { get; set; }
         public string Name { get; set; } = "Item";
         public int Quantity { get; set; } = 0;
         public string Store { get; set; } = "Store";
