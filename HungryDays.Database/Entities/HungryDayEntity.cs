@@ -9,7 +9,8 @@ namespace HungryDays.Database.Entities
 {
     public class HungryDayEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public DateTime Date { get; set; }
         public string Day { get; set; }
         public string Diner { get; set; }
         public ICollection<HungryItemEntity> HungryItems { get; set; }
