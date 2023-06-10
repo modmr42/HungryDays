@@ -9,6 +9,6 @@ namespace HungryDays.Database.Entities
 {
     public class HungryUserEntity : IdentityUser
     {
-        ICollection<HungryDayEntity> HungryDays { get; set; }
+        ICollection<HungryDayEntity> HungryDays { get; set; } = new List<HungryDayEntity>();
     }
 }
