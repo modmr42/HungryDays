@@ -22,7 +22,7 @@ namespace HungryDays.Domain.Services
             return await _repository.GetHungryDaysAsync();
         }
 
-        public async Task<HungryDayEntity> Get(int id)
+        public async Task<HungryDayEntity> Get(Guid id)
         {
             return await _repository.GetHungryDayAsync(id);
         }
@@ -39,7 +39,7 @@ namespace HungryDays.Domain.Services
             await _repository.SaveChangesAsync();
         }
 
-        public async Task Reset(int id)
+        public async Task Reset(Guid id)
         {
             var entityFromDb = await _repository.GetHungryDayAsync(id);
 
@@ -49,6 +49,11 @@ namespace HungryDays.Domain.Services
             entityFromDb.Reset();
 
             await _repository.SaveChangesAsync();
+        }
+
+        public async Task<bool> Exists(Guid id)
+        {
+            return await _repository.Exists(id);
         }
 
     }

@@ -24,13 +24,21 @@ namespace HungryDays.Database.Repositories
                 .ToListAsync();
         }
 
-        public async Task<HungryDayEntity> GetHungryDayAsync(int id)
+        public async Task<HungryDayEntity> GetHungryDayAsync(Guid id)
         {
             var entityFromDb = await _dbContext.HungryDays
                 .Include(x => x.HungryItems)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return entityFromDb;
+        }
+
+        public async Task<bool> Exists(Guid id)
+        {
+            var existsOrNot = await _dbContext.HungryDays
+                .AnyAsync(x => x.Id.Equals(id));
+
+            return existsOrNot;
         }
 
         public async Task SaveChangesAsync() =>

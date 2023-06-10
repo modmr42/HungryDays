@@ -1,4 +1,6 @@
 ﻿using HungryDays.Database.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HungryDays.Database
 {
-    public class HungryDaysDbContext : DbContext
+    public class HungryDaysDbContext : IdentityUserContext<HungryUserEntity>
     {
         private IConfiguration Configuration { get; }
 

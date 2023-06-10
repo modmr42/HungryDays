@@ -1,16 +1,16 @@
 version: '3.4'
 
 services:
-  hungrydays.blazor:
-    image: ${DOCKER_REGISTRY-}hungrydays.blazor
+  hungrydays.api:
+    image: ${DOCKER_REGISTRY-}hungrydays.api
     build:
       context: ..
-      dockerfile: ./HungryDays.Blazor/Dockerfile
+      dockerfile: HungryDays.Api/Dockerfile
     environment:
       - DOTNET_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     ports:
-      - "6071:80"
+      - "6072:80"
     depends_on:
     - hungrydays.database
   
@@ -21,3 +21,14 @@ services:
         ACCEPT_EULA: "Y"
     ports:
     - 1433:1433
+
+
+  # hungrydays.angular:
+    # image: ${DOCKER_REGISTRY-}hungrydays.angular
+    # build:
+     # context: ..
+     # dockerfile: HungryDays.Angular/Dockerfile
+    # ports:
+     # - "6073:80" 
+
+

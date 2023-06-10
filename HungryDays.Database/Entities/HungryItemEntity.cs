@@ -15,9 +15,9 @@ namespace HungryDays.Database.Entities
         public string Store { get; set; } ="Store";
         public bool Bought { get; set; } = false;
 
-        public int HungryDayID { get; set; }
+        public Guid HungryDayID { get; set; }
 
-        public HungryDayEntity HungryDay { get; set; }
+        public HungryDayEntity HungryDay { get; set; } 
 
         public void Update(HungryItemEntity entity)
         {
