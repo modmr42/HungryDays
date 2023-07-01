@@ -31,6 +31,7 @@ builder.Services.AddIdentityCore<HungryUserEntity>(options =>
 //services
 builder.Services.AddScoped<HungryDayService>();
 builder.Services.AddScoped<HungryItemService>();
+builder.Services.AddScoped<JwtService>();
 
 //repos
 builder.Services.AddScoped<HungryDayRepository>();

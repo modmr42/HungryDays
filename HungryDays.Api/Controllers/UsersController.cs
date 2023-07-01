@@ -1,6 +1,7 @@
 ﻿using HungryDays.Database.Entities;
 using HungryDays.Domain.Factories;
 using HungryDays.Domain.Models;
+using HungryDays.Domain.Models.Auth;
 using HungryDays.Domain.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,21 +10,22 @@ namespace HungryDays.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly UserManager<HungryUserEntity> _userManager;
-
+        private readonly JwtService _jwtService;
         private readonly ILogger<HungryDayController> _logger;
 
-        public UserController(ILogger<HungryDayController> logger,
-            UserManager<HungryUserEntity> userManager)
+        public UsersController(ILogger<HungryDayController> logger,
+            UserManager<HungryUserEntity> userManager, JwtService jwtService)
         {
             _logger = logger;
-
+            _jwtService = jwtService;
             _userManager = userManager;
         }
 
-        [HttpPost]
+        // POST: api/Users/Create
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateUser(HungryUserDto dto)
         {
             if(!ModelState.IsValid)
@@ -48,6 +50,34 @@ namespace HungryDays.Api.Controllers
 #endif
                 return BadRequest();
             }
+        }
+
+        // POST: api/Users/BearerToken
+        [HttpPost("BearerToken")]
+        public async Task<ActionResult<AuthenticationResponse>> CreateBearerToken(AuthenticationRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Bad credentials");
+            }
+
+            var user = await _userManager.FindByNameAsync(request.UserName);
+
+            if (user == null)
+            {
+                return BadRequest("Bad credentials");
+            }
+
+            var isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
+
+            if (!isPasswordValid)
+            {
+                return BadRequest("Bad credentials");
+            }
+
+            var token = _jwtService.CreateToken(user);
+
+            return Ok(token);
         }
 
         //[HttpGet("{id}")]
