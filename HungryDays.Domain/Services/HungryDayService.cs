@@ -21,6 +21,10 @@ namespace HungryDays.Domain.Services
         {
             return await _repository.GetHungryDaysAsync();
         }
+        public async Task<IEnumerable<HungryDayEntity>> GetAll(string userId)
+        {
+            return await _repository.GetHungryDaysAsync(userId);
+        }
 
         public async Task<HungryDayEntity> Get(Guid id)
         {

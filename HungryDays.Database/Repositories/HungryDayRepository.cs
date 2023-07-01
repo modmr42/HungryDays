@@ -23,6 +23,14 @@ namespace HungryDays.Database.Repositories
                 .OrderBy(x => x.Id)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<HungryDayEntity>> GetHungryDaysAsync(string userId)
+        {
+            return await _dbContext.HungryDays
+                .Where(x => x.HungryUserId == Guid.Parse(userId))
+                .Include(x => x.HungryItems)
+                .OrderBy(x => x.Id)
+                .ToListAsync();
+        }
 
         public async Task<HungryDayEntity> GetHungryDayAsync(Guid id)
         {

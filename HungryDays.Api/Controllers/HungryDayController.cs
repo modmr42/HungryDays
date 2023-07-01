@@ -1,13 +1,15 @@
-﻿using HungryDays.Domain.Factories;
+﻿using HungryDays.Database;
+using HungryDays.Domain.Factories;
 using HungryDays.Domain.Models;
 using HungryDays.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HungryDays.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HungryDayController : ControllerBase
+    public class HungryDayController : BaseV1Controller
     {
         private readonly HungryDayService _hungryDayService;
         private readonly HungryDayFactory _hungryDayFactory;
@@ -15,12 +17,13 @@ namespace HungryDays.Api.Controllers
         private readonly ILogger<HungryDayController> _logger;
 
         public HungryDayController(ILogger<HungryDayController> logger,
-            HungryDayService hungryDayService, HungryDayFactory hungryDayFactory)
+            HungryDayService hungryDayService, HungryDayFactory hungryDayFactory, HungryDaysDbContext context) : base(context)
         {
             _logger = logger;
             _hungryDayService = hungryDayService;
             _hungryDayFactory = hungryDayFactory;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()

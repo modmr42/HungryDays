@@ -4,7 +4,9 @@ using HungryDays.Database.Factories;
 using HungryDays.Database.Repositories;
 using HungryDays.Domain.Factories;
 using HungryDays.Domain.Services;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,24 @@ builder.Services.AddIdentityCore<HungryUserEntity>(options =>
     options.Password.RequireLowercase = false;
 }).AddEntityFrameworkStores<HungryDaysDbContext>();
 
+//auth
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+            )
+        };
+    });
+
 //services
 builder.Services.AddScoped<HungryDayService>();
 builder.Services.AddScoped<HungryItemService>();
@@ -46,7 +66,7 @@ builder.Services.AddScoped<HungryItemFactory>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddAuthentication();
 
 
 

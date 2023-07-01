@@ -26,6 +26,8 @@ namespace HungryDays.Database
             //Apply migrations to the database
             context.Database.Migrate();
 
+            return;//test
+
             //If dummy data already exists return;
             if (context.HungryDays.Any())
                 return;
