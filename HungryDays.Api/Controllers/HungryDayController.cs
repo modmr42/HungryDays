@@ -1,34 +1,40 @@
 ﻿using HungryDays.Database;
+using HungryDays.Database.Entities;
 using HungryDays.Domain.Factories;
 using HungryDays.Domain.Models;
 using HungryDays.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace HungryDays.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class HungryDayController : BaseV1Controller
     {
         private readonly HungryDayService _hungryDayService;
         private readonly HungryDayFactory _hungryDayFactory;
-
+        private readonly UserManager<HungryUserEntity> _userManager;
         private readonly ILogger<HungryDayController> _logger;
 
         public HungryDayController(ILogger<HungryDayController> logger,
-            HungryDayService hungryDayService, HungryDayFactory hungryDayFactory, HungryDaysDbContext context) : base(context)
+            HungryDayService hungryDayService, HungryDayFactory hungryDayFactory, HungryDaysDbContext context, UserManager<HungryUserEntity> userManager) : base(context)
         {
             _logger = logger;
             _hungryDayService = hungryDayService;
             _hungryDayFactory = hungryDayFactory;
+            _userManager = userManager;
         }
 
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var entities = await _hungryDayService.GetAll();
+            var user = GetCurrentUser();
+            var entities = await _hungryDayService.GetAll(user.Id);
             var model = entities.Select(x => _hungryDayFactory.ToDto(x));
             if(model == null)
                 return NoContent();

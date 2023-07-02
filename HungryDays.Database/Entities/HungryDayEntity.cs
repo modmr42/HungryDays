@@ -11,7 +11,7 @@ namespace HungryDays.Database.Entities
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public HungryUserEntity HungryUser { get; set; }
-        public Guid HungryUserID { get; set; }
+        public string HungryUserId { get; set; }
 
         public DateTime Date { get; set; }
         public string Day { get; set; }

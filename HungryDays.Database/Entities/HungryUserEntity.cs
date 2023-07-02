@@ -18,7 +18,7 @@ namespace HungryDays.Database.Entities
             entity
                 .HasMany(x => x.HungryDays)
                 .WithOne(x => x.HungryUser)
-                .HasForeignKey(x => x.HungryUserID);
+                .HasForeignKey(x => x.HungryUserId);
         }
     }
 }

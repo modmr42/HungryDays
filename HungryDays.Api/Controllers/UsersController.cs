@@ -1,4 +1,5 @@
-﻿using HungryDays.Database.Entities;
+﻿using HungryDays.Database;
+using HungryDays.Database.Entities;
 using HungryDays.Domain.Factories;
 using HungryDays.Domain.Models;
 using HungryDays.Domain.Models.Auth;
@@ -10,18 +11,20 @@ namespace HungryDays.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseV1Controller
     {
         private readonly UserManager<HungryUserEntity> _userManager;
+        private readonly HungryDayService _hungryDayService;
         private readonly JwtService _jwtService;
-        private readonly ILogger<HungryDayController> _logger;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(ILogger<HungryDayController> logger,
-            UserManager<HungryUserEntity> userManager, JwtService jwtService)
+        public UsersController(ILogger<UsersController> logger,
+            UserManager<HungryUserEntity> userManager, JwtService jwtService, HungryDayService hungryDayService, HungryDaysDbContext dbContext) : base(dbContext)
         {
             _logger = logger;
             _jwtService = jwtService;
             _userManager = userManager;
+            _hungryDayService = hungryDayService;
         }
 
         // POST: api/Users/Create
@@ -39,6 +42,10 @@ namespace HungryDays.Api.Controllers
                 
                 if(!result.Succeeded)
                     return BadRequest(result.Errors);
+
+                var user = await _userManager.FindByNameAsync(dto.UserName);
+                await _hungryDayService.CreateHungryDaysForNewUserAsync(user.Id);
+
 
                 dto.Password = String.Empty;
                 return Created("",dto);

@@ -1,10 +1,12 @@
 ﻿using HungryDays.Domain.Factories;
 using HungryDays.Domain.Models;
 using HungryDays.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HungryDays.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class HungryItemController : ControllerBase

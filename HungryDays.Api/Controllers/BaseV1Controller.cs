@@ -16,10 +16,9 @@ namespace HungryDays.Api.Controllers
         [NonAction]
         public HungryUserEntity GetCurrentUser()
         {
-            var identity = User.Identity as ClaimsIdentity;
-            Claim identityClaim = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            var identity = User.Identity.Name;
 
-            return _context.Users.FirstOrDefault(u => u.Id == identityClaim.Value);
+            return _context.Users.FirstOrDefault(u => u.UserName == identity) ?? throw new Exception("No user found with this name");
         }
     }
 }
