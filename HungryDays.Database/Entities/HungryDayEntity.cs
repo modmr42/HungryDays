@@ -10,6 +10,9 @@ namespace HungryDays.Database.Entities
     public class HungryDayEntity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
+        public HungryUserEntity HungryUser { get; set; }
+        public string HungryUserId { get; set; }
+
         public DateTime Date { get; set; }
         public string Day { get; set; }
         public string Diner { get; set; }

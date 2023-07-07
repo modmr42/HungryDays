@@ -13,6 +13,7 @@ namespace HungryDays.Database
         public static void ConfigureModels(ModelBuilder modelBuilder)
         {
             HungryDayEntity.OnModelCreating(modelBuilder.Entity<HungryDayEntity>());
+            HungryUserEntity.OnModelCreating(modelBuilder.Entity<HungryUserEntity>());
         }
     }
 }

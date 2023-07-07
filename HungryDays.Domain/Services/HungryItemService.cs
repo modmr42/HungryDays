@@ -22,10 +22,21 @@ namespace HungryDays.Domain.Services
             hungryItems.OrderBy(x => x.Store);
             return hungryItems;
         }
+        public async Task<IEnumerable<HungryItemEntity>> GetAll(string userId)
+        {
+            var hungryItems = await _repository.GetHungryItemsAsync();
+            hungryItems.OrderBy(x => x.Store);
+            return hungryItems;
+        }
 
         public async Task<HungryItemEntity> Get(Guid id)
         {
             return await _repository.GetHungryItemAsync(id);
+        }
+
+        public async Task<HungryItemEntity> Get(Guid id, string userId)
+        {
+            return await _repository.GetHungryItemAsync(id, userId);
         }
 
         public async Task Add(HungryItemEntity entity)
