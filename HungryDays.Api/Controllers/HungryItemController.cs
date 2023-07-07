@@ -32,7 +32,7 @@ namespace HungryDays.Api.Controllers
             return Ok(model);
         }
 
-        [HttpGet("hungryitem/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             if (id == Guid.Empty)
@@ -46,7 +46,7 @@ namespace HungryDays.Api.Controllers
             return Ok(model);
         }
 
-        [HttpPost("hungryitem/{id}")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> Update(HungryItemDto dto)
         {
             if (dto == null)
@@ -63,7 +63,7 @@ namespace HungryDays.Api.Controllers
             return Ok();
         }
 
-        [HttpPost("hungryitem")]
+        [HttpPost]
         public async Task<IActionResult> Create(HungryItemDto dto)
         {
             if (dto == null)
@@ -72,6 +72,22 @@ namespace HungryDays.Api.Controllers
             var entity = _hungryItemFactory.ToEntity(dto);
 
             await _hungryItemService.Add(entity);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (id == Guid.Empty)
+                return BadRequest();
+
+            var entity = await _hungryItemService.Get(id);
+
+            if (entity == null)
+                return NotFound();
+
+            await _hungryItemService.Delete(id);
 
             return Ok();
         }
