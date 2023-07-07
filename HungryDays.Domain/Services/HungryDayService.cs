@@ -21,10 +21,23 @@ namespace HungryDays.Domain.Services
         {
             return await _repository.GetHungryDaysAsync();
         }
+        public async Task<IEnumerable<HungryDayEntity>> GetAll(string userId)
+        {
+            return await _repository.GetHungryDaysAsync(userId);
+        }
+
+        public async Task CreateHungryDaysForNewUserAsync(string userId)
+        {
+            await _repository.CreateHungryDaysForNewUserAsync(userId);
+        }
 
         public async Task<HungryDayEntity> Get(Guid id)
         {
             return await _repository.GetHungryDayAsync(id);
+        }
+        public async Task<HungryDayEntity> Get(Guid id, string userId)
+        {
+            return await _repository.GetHungryDayAsync(id, userId);
         }
 
         public async Task Update(HungryDayEntity entity)
@@ -54,6 +67,10 @@ namespace HungryDays.Domain.Services
         public async Task<bool> Exists(Guid id)
         {
             return await _repository.Exists(id);
+        }
+        public async Task<bool> Exists(Guid id, string userId)
+        {
+            return await _repository.Exists(id, userId);
         }
 
     }
