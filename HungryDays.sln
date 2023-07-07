@@ -11,7 +11,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "Docker.Development", "Docke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HungryDays.Api", "HungryDays.Api\HungryDays.Api.csproj", "{28A8FECF-D831-4A25-BC8F-1AA78AA01D0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungryDays.Blazor.PWA", "HungryDays.Blazor.PWA\HungryDays.Blazor.PWA.csproj", "{6A205B2D-15F9-49C3-8B9A-4834EB0B4C06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HungryDays.Blazor.PWA", "HungryDays.Blazor.PWA\HungryDays.Blazor.PWA.csproj", "{6A205B2D-15F9-49C3-8B9A-4834EB0B4C06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
