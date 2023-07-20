@@ -1,31 +1,40 @@
-﻿using HungryDays.Domain.Factories;
+﻿using HungryDays.Database;
+using HungryDays.Database.Entities;
+using HungryDays.Domain.Factories;
 using HungryDays.Domain.Models;
 using HungryDays.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HungryDays.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class HungryDayController : ControllerBase
+    public class HungryDaysController : BaseV1Controller
     {
         private readonly HungryDayService _hungryDayService;
         private readonly HungryDayFactory _hungryDayFactory;
+        private readonly UserManager<HungryUserEntity> _userManager;
+        private readonly ILogger<HungryDaysController> _logger;
 
-        private readonly ILogger<HungryDayController> _logger;
-
-        public HungryDayController(ILogger<HungryDayController> logger,
-            HungryDayService hungryDayService, HungryDayFactory hungryDayFactory)
+        public HungryDaysController(ILogger<HungryDaysController> logger,
+            HungryDayService hungryDayService, HungryDayFactory hungryDayFactory, HungryDaysDbContext context, UserManager<HungryUserEntity> userManager) : base(context)
         {
             _logger = logger;
             _hungryDayService = hungryDayService;
             _hungryDayFactory = hungryDayFactory;
+            _userManager = userManager;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var entities = await _hungryDayService.GetAll();
+            var user = GetCurrentUser();
+            var entities = await _hungryDayService.GetAll(user.Id);
             var model = entities.Select(x => _hungryDayFactory.ToDto(x));
             if(model == null)
                 return NoContent();
@@ -36,12 +45,13 @@ namespace HungryDays.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var entityFromDb = await _hungryDayService.Exists(id);
+            var user = GetCurrentUser();
+            var entityFromDb = await _hungryDayService.Exists(id, user.Id);
 
             if (!entityFromDb)
                 return BadRequest();
 
-            var entity = await _hungryDayService.Get(id);
+            var entity = await _hungryDayService.Get(id, user.Id);
             if(entity == null)
                 return NotFound();
 
@@ -52,7 +62,8 @@ namespace HungryDays.Api.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> Update(HungryDayDto dto)
         {
-            var entityFromDb = await _hungryDayService.Exists(dto.Id);
+            var user = GetCurrentUser();
+            var entityFromDb = await _hungryDayService.Exists(dto.Id, user.Id);
 
             if (!entityFromDb)
                 return BadRequest();
@@ -66,7 +77,8 @@ namespace HungryDays.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Reset(Guid id)
         {
-            var entityFromDb = await _hungryDayService.Exists(id);
+            var user = GetCurrentUser();
+            var entityFromDb = await _hungryDayService.Exists(id, user.Id);
 
             if (!entityFromDb)
                 return BadRequest();

@@ -26,35 +26,36 @@ namespace HungryDays.Database
             //Apply migrations to the database
             context.Database.Migrate();
 
+
             //If dummy data already exists return;
-            if (context.HungryDays.Any())
-                return;
+            //if (context.HungryDays.Any())
+            //    return;
 
-            #region DbFill
-            string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-            var hungryDays = new List<HungryDayEntity>();
-            for (int i = 0; i < days.Length; i++) //todo delete auto increment of hungrydays id
-            {
-                hungryDays.Add(
-                    new HungryDayEntity
-                    {
-                        Day = days[i],
-                        Diner = "Still not decided",
-                        HungryItems = new List<HungryItemEntity>()
-                        {
-                                new HungryItemEntity()
-                                {
-                                    Name ="Ingredient",
-                                    Quantity = 1,
-                                    Store = "Ah",
-                                    Bought = true,
-                                }
-                        }
-                    });
-            }
+            //#region DbFill
+            //string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+            //var hungryDays = new List<HungryDayEntity>();
+            //for (int i = 0; i < days.Length; i++) //todo delete auto increment of hungrydays id
+            //{
+            //    hungryDays.Add(
+            //        new HungryDayEntity
+            //        {
+            //            Day = days[i],
+            //            Diner = "Still not decided",
+            //            HungryItems = new List<HungryItemEntity>()
+            //            {
+            //                    new HungryItemEntity()
+            //                    {
+            //                        Name ="Ingredient",
+            //                        Quantity = 1,
+            //                        Store = "Ah",
+            //                        Bought = true,
+            //                    }
+            //            }
+            //        });
+            //}
 
-            context.HungryDays.AddRange(hungryDays);
-            #endregion
+            //context.HungryDays.AddRange(hungryDays);
+            //#endregion
 
             context.SaveChanges();
 

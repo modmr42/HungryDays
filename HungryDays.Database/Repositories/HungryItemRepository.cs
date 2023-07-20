@@ -22,10 +22,24 @@ namespace HungryDays.Database.Repositories
                 .OrderBy(x => x.Id)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<HungryItemEntity>> GetHungryItemsAsync(string userId)
+        {
+            return await _dbContext.HungryItems
+                .Where(x=> x.HungryDay.HungryUserId == userId)
+                .OrderBy(x => x.Id)
+                .ToListAsync();
+        }
 
         public async Task<HungryItemEntity> GetHungryItemAsync(Guid id)
         {
             return await _dbContext.HungryItems
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<HungryItemEntity> GetHungryItemAsync(Guid id, string userId)
+        {
+            return await _dbContext.HungryItems
+                .Where(x => x.HungryDay.HungryUserId == userId)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
