@@ -1,0 +1,5 @@
+#F6F8FF gray/white
+#1bb8d1 dark blue
+#ccffff light blue
+#bcf97a green
+#cc4e1c brown

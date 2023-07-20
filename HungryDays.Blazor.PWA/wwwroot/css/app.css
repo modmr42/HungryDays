@@ -46,10 +46,11 @@
 /*new*/
 
 body {
-    background-color: #000;
+    background-color: #628CF6;
 }
 
 .card {
+    background-color: #F6F8FF;
     width: 90%;
     margin: auto
 }
@@ -101,6 +102,12 @@ body {
     padding: 2px
 }
 
+.diner {
+    color: #153063;
+    font-weight: 600;
+    font-size: 20px;
+}
+
 .task {
     color: #153063;
     font-weight: 500
@@ -125,11 +132,10 @@ body {
 }
 
 .card-header {
-    margin-left: 5%;
-    margin-right: 5%;
-    background-color: white !important;
-    padding: 0px;
-    margin-top: 2%
+
+    padding-inline: 1%;
+    padding-inline-start:1%;
+    margin-top: 1%
 }
 
 .navTask {
