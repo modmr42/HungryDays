@@ -13,14 +13,14 @@ namespace HungryDays.Api.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class HungryDayController : BaseV1Controller
+    public class HungryDaysController : BaseV1Controller
     {
         private readonly HungryDayService _hungryDayService;
         private readonly HungryDayFactory _hungryDayFactory;
         private readonly UserManager<HungryUserEntity> _userManager;
-        private readonly ILogger<HungryDayController> _logger;
+        private readonly ILogger<HungryDaysController> _logger;
 
-        public HungryDayController(ILogger<HungryDayController> logger,
+        public HungryDaysController(ILogger<HungryDaysController> logger,
             HungryDayService hungryDayService, HungryDayFactory hungryDayFactory, HungryDaysDbContext context, UserManager<HungryUserEntity> userManager) : base(context)
         {
             _logger = logger;
@@ -45,12 +45,13 @@ namespace HungryDays.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id) //add owning entity logic
         {
-            var entityFromDb = await _hungryDayService.Exists(id);
+            var user = GetCurrentUser();
+            var entityFromDb = await _hungryDayService.Exists(id, user.Id);
 
             if (!entityFromDb)
                 return BadRequest();
 
-            var entity = await _hungryDayService.Get(id);
+            var entity = await _hungryDayService.Get(id, user.Id);
             if(entity == null)
                 return NotFound();
 
@@ -61,7 +62,8 @@ namespace HungryDays.Api.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> Update(HungryDayDto dto)
         {
-            var entityFromDb = await _hungryDayService.Exists(dto.Id);
+            var user = GetCurrentUser();
+            var entityFromDb = await _hungryDayService.Exists(dto.Id, user.Id);
 
             if (!entityFromDb)
                 return BadRequest();
@@ -75,7 +77,8 @@ namespace HungryDays.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Reset(Guid id)
         {
-            var entityFromDb = await _hungryDayService.Exists(id);
+            var user = GetCurrentUser();
+            var entityFromDb = await _hungryDayService.Exists(id, user.Id);
 
             if (!entityFromDb)
                 return BadRequest();

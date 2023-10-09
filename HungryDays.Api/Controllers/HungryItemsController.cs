@@ -1,4 +1,5 @@
-﻿using HungryDays.Domain.Factories;
+﻿using HungryDays.Database;
+using HungryDays.Domain.Factories;
 using HungryDays.Domain.Models;
 using HungryDays.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -9,14 +10,13 @@ namespace HungryDays.Api.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class HungryItemController : ControllerBase
+    public class HungryItemsController : BaseV1Controller
     {
         private readonly HungryItemService _hungryItemService;
         private readonly HungryItemFactory _hungryItemFactory;
-        private readonly ILogger<HungryItemController> _logger;
-
-        public HungryItemController(ILogger<HungryItemController> logger,
-            HungryItemService hungryItemService, HungryItemFactory hungryItemFactory)
+        private readonly ILogger<HungryItemsController> _logger;
+        public HungryItemsController(ILogger<HungryItemsController> logger,
+            HungryItemService hungryItemService, HungryItemFactory hungryItemFactory, HungryDaysDbContext context) : base(context)
         {
             _logger = logger;
             _hungryItemService = hungryItemService;
@@ -26,7 +26,8 @@ namespace HungryDays.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var entities = await _hungryItemService.GetAll();
+            var user = GetCurrentUser();
+            var entities = await _hungryItemService.GetAll(user.Id);
             var model = entities.Select(x => _hungryItemFactory.ToDto(x));
             if (model == null)
                 return NoContent();
@@ -40,7 +41,9 @@ namespace HungryDays.Api.Controllers
             if (id == Guid.Empty)
                 return BadRequest();
 
-            var entity = await _hungryItemService.Get(id);
+            var user = GetCurrentUser();
+
+            var entity = await _hungryItemService.Get(id, user.Id);
             if (entity == null)
                 return NotFound();
 

@@ -41,9 +41,28 @@ namespace HungryDays.Database.Repositories
             return entityFromDb;
         }
 
+        public async Task<HungryDayEntity> GetHungryDayAsync(Guid id, string userId)
+        {
+            var entityFromDb = await _dbContext.HungryDays
+                .Where(x => x.HungryUserId == userId)
+                .Include(x => x.HungryItems)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return entityFromDb;
+        }
+
         public async Task<bool> Exists(Guid id)
         {
             var existsOrNot = await _dbContext.HungryDays
+                .AnyAsync(x => x.Id.Equals(id));
+
+            return existsOrNot;
+        }
+
+        public async Task<bool> Exists(Guid id, string userId)
+        {
+            var existsOrNot = await _dbContext.HungryDays
+                .Where(x => x.HungryUserId == userId)
                 .AnyAsync(x => x.Id.Equals(id));
 
             return existsOrNot;
