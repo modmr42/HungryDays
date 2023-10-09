@@ -43,7 +43,7 @@ namespace HungryDays.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id) //add owning entity logic
         {
             var entityFromDb = await _hungryDayService.Exists(id);
 
